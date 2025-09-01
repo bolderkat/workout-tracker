@@ -9,11 +9,11 @@ import SwiftUI
 import WatchKit
 
 struct SessionPagingView: View {
-    private typealias ViewModel = SessionPagingViewModel
+    private typealias Tab = SessionPagingViewModel.Tab
 
     @Environment(\.isLuminanceReduced) private var isLuminanceReduced
     private let workoutManager: WorkoutManager
-    @State private var viewModel: ViewModel
+    @State private var viewModel: SessionPagingViewModel
 
     init(workoutManager: WorkoutManager) {
         self.workoutManager = workoutManager
@@ -23,11 +23,11 @@ struct SessionPagingView: View {
     var body: some View {
         TabView(selection: $viewModel.selection) {
             ControlsView(workoutManager: workoutManager)
-                .tag(ViewModel.Tab.controls)
+                .tag(Tab.controls)
             MetricsView(workoutManager: workoutManager)
-                .tag(ViewModel.Tab.metrics)
+                .tag(Tab.metrics)
             NowPlayingView()
-                .tag(ViewModel.Tab.nowPlaying)
+                .tag(Tab.nowPlaying)
         }
         .navigationTitle(viewModel.navigationTitle)
         .navigationBarBackButtonHidden()
