@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 @Observable class FakeWorkoutManager: WorkoutManager {
-    var selectedWorkout: HKWorkoutActivityType?
+    var selectedWorkout: WorkoutType?
     var isShowingSummaryView: Bool = false
     var isRunning = false
     var averageHeartRate: Double = 0

@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 @Observable class RealWorkoutManager: NSObject, WorkoutManager {
-    var selectedWorkout: HKWorkoutActivityType? {
+    var selectedWorkout: WorkoutType? {
         didSet {
             guard let selectedWorkout else { return }
             startWorkout(of: selectedWorkout)
@@ -126,9 +126,9 @@ import HealthKit
         }
     }
 
-    private func startWorkout(of workoutType: HKWorkoutActivityType) {
+    private func startWorkout(of workoutType: WorkoutType) {
         let configuration = HKWorkoutConfiguration()
-        configuration.activityType = workoutType
+        configuration.activityType = workoutType.asHKWorkoutActivityType
         configuration.locationType = .outdoor
 
         do {

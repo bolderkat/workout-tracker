@@ -5,13 +5,12 @@
 //  Created by Daniel Luo on 9/1/25.
 //
 
-import HealthKit
 import Foundation
 
 @Observable final class StartViewModel {
     private var workoutManager: WorkoutManager
 
-    let workoutTypes: [HKWorkoutActivityType] = [
+    let workoutTypes: [WorkoutType] = [
         .cycling,
         .running,
         .walking
@@ -21,7 +20,7 @@ import Foundation
         self.workoutManager = workoutManager
     }
 
-    var selectedWorkout: HKWorkoutActivityType? {
+    var selectedWorkout: WorkoutType? {
         get {
             workoutManager.selectedWorkout
         }

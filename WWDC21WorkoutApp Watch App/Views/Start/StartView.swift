@@ -5,7 +5,6 @@
 //  Created by Daniel Luo on 8/27/25.
 //
 
-import HealthKit
 import SwiftUI
 
 struct StartView: View {
@@ -38,23 +37,4 @@ struct StartView: View {
 
 #Preview {
     StartView(workoutManager: FakeWorkoutManager())
-}
-
-extension HKWorkoutActivityType: Identifiable {
-    public var id: UInt {
-        rawValue
-    }
-
-    var name: String {
-        switch self {
-        case .running:
-            return "Run"
-        case .cycling:
-            return "Bike"
-        case .walking:
-            return "Walk"
-        default:
-            return ""
-        }
-    }
 }

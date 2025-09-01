@@ -9,7 +9,7 @@ import Foundation
 import HealthKit
 
 protocol WorkoutManager {
-    var selectedWorkout: HKWorkoutActivityType? { get set }
+    var selectedWorkout: WorkoutType? { get set }
     var isShowingSummaryView: Bool { get set }
     var isRunning: Bool { get }
     var builder: HKLiveWorkoutBuilder? { get }
