@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @Observable class SessionPagingViewModel {
     enum Tab {
         case controls

@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 @Observable final class StartViewModel {
     private var workoutManager: WorkoutManager
 

@@ -8,6 +8,7 @@
 import HealthKit // can refactor WorkoutManager so we don't need to look at the HKWorkout directly, but we would still need this import in order to vend a HKHealthStore from here.
 import Foundation
 
+@MainActor
 @Observable final class SummaryViewModel {
     private let durationFormatter: DateComponentsFormatter = {
         let formatter = DateComponentsFormatter()
