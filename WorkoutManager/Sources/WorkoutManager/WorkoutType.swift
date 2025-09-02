@@ -5,7 +5,7 @@
 //  Created by Daniel Luo on 9/1/25.
 //
 
-enum WorkoutType: Int, Identifiable {
+public enum WorkoutType: Int, Identifiable {
     case running
     case cycling
     case walking
@@ -14,7 +14,7 @@ enum WorkoutType: Int, Identifiable {
         rawValue
     }
 
-    var name: String {
+    public var name: String {
         switch self {
         case .running:
             return "Run"

@@ -5,8 +5,9 @@
 //  Created by Daniel Luo on 9/1/25.
 //
 
-import HealthKit // can refactor WorkoutManager so we don't need to look at the HKWorkout directly, but we would still need this import in order to vend a HKHealthStore from here.
+import HealthKit // can refactor WorkoutManaging so we don't need to look at the HKWorkout directly, but we would still need this import in order to vend a HKHealthStore from here.
 import Foundation
+import WorkoutManager
 
 @MainActor
 @Observable final class SummaryViewModel {
@@ -17,9 +18,9 @@ import Foundation
         return formatter
     }()
 
-    private let workoutManager: WorkoutManager
+    private let workoutManager: WorkoutManaging
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
     }
 

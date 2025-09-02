@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WorkoutManager
 
 @MainActor
 @Observable class SessionPagingViewModel {
@@ -15,10 +16,10 @@ import Foundation
         case nowPlaying
     }
 
-    private let workoutManager: WorkoutManager
+    private let workoutManager: WorkoutManaging
     var selection: Tab = .metrics
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
     }
 

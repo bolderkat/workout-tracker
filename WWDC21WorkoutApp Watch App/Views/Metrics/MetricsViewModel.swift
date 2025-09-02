@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import WorkoutManager
 
 @MainActor
 @Observable final class MetricsViewModel {
-    private let workoutManager: WorkoutManager
+    private let workoutManager: WorkoutManaging
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
     }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35639A062E66424800628C90 /* WorkoutManager in Frameworks */ = {isa = PBXBuildFile; productRef = 35639A052E66424800628C90 /* WorkoutManager */; };
 		35A8115A2E5F4AD7009C1017 /* WWDC21WorkoutApp Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 35A811592E5F4AD7009C1017 /* WWDC21WorkoutApp Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -49,6 +50,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		35639A022E6628A500628C90 /* WorkoutManager */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = WorkoutManager; sourceTree = "<group>"; };
 		35A811532E5F4AD7009C1017 /* WWDC21WorkoutApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WWDC21WorkoutApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A811592E5F4AD7009C1017 /* WWDC21WorkoutApp Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WWDC21WorkoutApp Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		35A811682E5F4AD8009C1017 /* WWDC21WorkoutApp Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "WWDC21WorkoutApp Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35639A062E66424800628C90 /* WorkoutManager in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +108,7 @@
 				35A8116B2E5F4AD8009C1017 /* WWDC21WorkoutApp Watch AppTests */,
 				35A811752E5F4AD8009C1017 /* WWDC21WorkoutApp Watch AppUITests */,
 				35A811542E5F4AD7009C1017 /* Products */,
+				35639A022E6628A500628C90 /* WorkoutManager */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,6 +162,7 @@
 			);
 			name = "WWDC21WorkoutApp Watch App";
 			packageProductDependencies = (
+				35639A052E66424800628C90 /* WorkoutManager */,
 			);
 			productName = "WWDC21WorkoutApp Watch App";
 			productReference = 35A811592E5F4AD7009C1017 /* WWDC21WorkoutApp Watch App.app */;
@@ -244,6 +249,9 @@
 			);
 			mainGroup = 35A8114C2E5F4AD7009C1017;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				35639A042E66424800628C90 /* XCLocalSwiftPackageReference "WorkoutManager" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 35A811542E5F4AD7009C1017 /* Products */;
 			projectDirPath = "";
@@ -674,6 +682,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		35639A042E66424800628C90 /* XCLocalSwiftPackageReference "WorkoutManager" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = WorkoutManager;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		35639A052E66424800628C90 /* WorkoutManager */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WorkoutManager;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 35A8114D2E5F4AD7009C1017 /* Project object */;
 }

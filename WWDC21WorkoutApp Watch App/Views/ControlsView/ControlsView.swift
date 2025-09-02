@@ -6,11 +6,12 @@
 //
 
 import SwiftUI
+import WorkoutManager
 
 struct ControlsView: View {
     @State private var viewModel: ControlsViewModel
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         viewModel = ControlsViewModel(workoutManager: workoutManager)
     }
 

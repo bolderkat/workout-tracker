@@ -8,15 +8,18 @@
 import Foundation
 import HealthKit
 
-@Observable class RealWorkoutManager: NSObject, WorkoutManager {
-    var selectedWorkout: WorkoutType? {
+@MainActor
+@Observable public class RealWorkoutManager: NSObject, WorkoutManaging {
+    public var selectedWorkout: WorkoutType? {
         didSet {
             guard let selectedWorkout else { return }
-            startWorkout(of: selectedWorkout)
+            Task { @MainActor in
+                await startWorkout(of: selectedWorkout)
+            }
         }
     }
 
-    var isShowingSummaryView: Bool = false {
+    public var isShowingSummaryView: Bool = false {
         didSet {
             if !isShowingSummaryView {
                 resetWorkout()
@@ -24,15 +27,15 @@ import HealthKit
         }
     }
 
-    let healthStore = HKHealthStore()
-    var session: HKWorkoutSession?
-    var builder: HKLiveWorkoutBuilder?
+    public let healthStore = HKHealthStore()
+    public private(set) var session: HKWorkoutSession?
+    public private(set) var builder: HKLiveWorkoutBuilder?
 
     // MARK: - State machine
 
-    var isRunning = false
+    public var isRunning = false
 
-    func togglePause() {
+    public func togglePause() {
         if isRunning == true {
             pause()
         } else {
@@ -48,7 +51,7 @@ import HealthKit
         session?.resume()
     }
 
-    func endWorkout() {
+    public func endWorkout() {
         session?.end()
         isShowingSummaryView = true
     }
@@ -57,11 +60,11 @@ import HealthKit
 
     // MARK: Workout Metrics
 
-    var averageHeartRate: Double = 0
-    var heartRate: Double = 0
-    var activeEnergy: Double = 0
-    var distance: Double = 0
-    var workout: HKWorkout?
+    public private(set) var averageHeartRate: Double = 0
+    public private(set) var heartRate: Double = 0
+    public private(set) var activeEnergy: Double = 0
+    public private(set) var distance: Double = 0
+    public private(set) var workout: HKWorkout?
 
     @MainActor
     private func updateFor(_ statistics: HKStatistics?) {
@@ -103,7 +106,7 @@ import HealthKit
     }
 
     /// Request authorization to access HealthKit.
-    func requestAuthorization() {
+    public func requestAuthorization() {
         // Types to write to the health store.
         let typesToShare: Set = [
             HKQuantityType.workoutType()
@@ -126,7 +129,7 @@ import HealthKit
         }
     }
 
-    private func startWorkout(of workoutType: WorkoutType) {
+    private func startWorkout(of workoutType: WorkoutType) async {
         let configuration = HKWorkoutConfiguration()
         configuration.activityType = workoutType.asHKWorkoutActivityType
         configuration.locationType = .outdoor
@@ -153,8 +156,15 @@ import HealthKit
 
         let startDate = Date()
         session?.startActivity(with: startDate)
-        builder?.beginCollection(withStart: startDate) { success, error in
+
+        guard let builder else { return }
+        do {
+            try await builder.beginCollection(at: startDate)
             // workout started
+        } catch is CancellationError {
+            // we can prob ignore this
+        } catch {
+            // handle errors
         }
     }
 }
@@ -162,34 +172,37 @@ import HealthKit
 // MARK: - HKWorkoutSessionDelegate
 
 extension RealWorkoutManager: HKWorkoutSessionDelegate {
-    func workoutSession(
+    public nonisolated func workoutSession(
         _ workoutSession: HKWorkoutSession,
         didChangeTo toState: HKWorkoutSessionState,
         from fromState: HKWorkoutSessionState,
         date: Date
     ) {
-        DispatchQueue.main.async { [weak self] in
-            if toState == .running {
-                self?.isRunning = true
-            } else {
-                self?.isRunning = false
-            }
-        }
+        Task { @MainActor in
+            switch toState {
+            case .running:
+                isRunning = true
 
-        // Wait for the session to transition states before ending the builder.
-        if toState == .ended {
-            builder?.endCollection(withEnd: date) { [weak self] success, error in
-                // Once we finish collection, we finish the workout which saves it to the HealthStore.
-                self?.builder?.finishWorkout { workout, error in
-                    DispatchQueue.main.async { [weak self] in
-                        self?.workout = workout
-                    }
+            case .ended:
+                isRunning = false
+
+                do {
+                    guard let builder else { return }
+                    try await builder.endCollection(at: date)
+                    workout = try await builder.finishWorkout()
+                } catch {
+                    // handle errors
                 }
+
+            case .notStarted, .paused, .prepared, .stopped:
+                isRunning = false
+            @unknown default:
+                isRunning = false
             }
         }
     }
 
-    func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: any Error) {
+    public nonisolated func workoutSession(_ workoutSession: HKWorkoutSession, didFailWithError error: any Error) {
         // present failure UI
     }
 }
@@ -197,11 +210,11 @@ extension RealWorkoutManager: HKWorkoutSessionDelegate {
 // MARK: - HKLiveWorkoutBuilderDelegate
 
 extension RealWorkoutManager: HKLiveWorkoutBuilderDelegate {
-    func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
+    public nonisolated func workoutBuilderDidCollectEvent(_ workoutBuilder: HKLiveWorkoutBuilder) {
         // unimplemented
     }
 
-    func workoutBuilder(
+    public nonisolated func workoutBuilder(
         _ workoutBuilder: HKLiveWorkoutBuilder,
         didCollectDataOf collectedTypes: Set<HKSampleType>
     ) {

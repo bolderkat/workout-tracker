@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import WorkoutManager
 
 @MainActor
 @Observable final class RootViewModel {
-    private var workoutManager: WorkoutManager
+    private var workoutManager: WorkoutManaging
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
     }
 

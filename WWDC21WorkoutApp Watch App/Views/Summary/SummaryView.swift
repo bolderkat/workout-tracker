@@ -7,13 +7,14 @@
 
 import HealthKit
 import SwiftUI
+import WorkoutManager
 
 struct SummaryView: View {
     @Environment(\.dismiss) var dismiss
 
     @State private var viewModel: SummaryViewModel
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         viewModel = SummaryViewModel(workoutManager: workoutManager)
     }
 

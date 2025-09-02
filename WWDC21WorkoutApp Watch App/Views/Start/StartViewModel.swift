@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import WorkoutManager
 
 @MainActor
 @Observable final class StartViewModel {
-    private var workoutManager: WorkoutManager
+    private var workoutManager: WorkoutManaging
 
     let workoutTypes: [WorkoutType] = [
         .cycling,
@@ -17,7 +18,7 @@ import Foundation
         .walking
     ]
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
     }
 

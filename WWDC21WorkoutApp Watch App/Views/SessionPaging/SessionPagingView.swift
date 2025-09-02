@@ -7,15 +7,16 @@
 
 import SwiftUI
 import WatchKit
+import WorkoutManager
 
 struct SessionPagingView: View {
     private typealias Tab = SessionPagingViewModel.Tab
 
     @Environment(\.isLuminanceReduced) private var isLuminanceReduced
-    private let workoutManager: WorkoutManager
+    private let workoutManager: WorkoutManaging
     @State private var viewModel: SessionPagingViewModel
 
-    init(workoutManager: WorkoutManager) {
+    init(workoutManager: WorkoutManaging) {
         self.workoutManager = workoutManager
         viewModel = SessionPagingViewModel(workoutManager: workoutManager)
     }

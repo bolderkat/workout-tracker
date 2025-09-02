@@ -7,7 +7,7 @@
 
 import HealthKit
 
-extension WorkoutType {
+public extension WorkoutType {
     var asHKWorkoutActivityType: HKWorkoutActivityType {
         switch self {
         case .running:

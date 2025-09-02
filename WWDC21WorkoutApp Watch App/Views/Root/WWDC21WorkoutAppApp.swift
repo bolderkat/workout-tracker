@@ -6,10 +6,11 @@
 //
 
 import SwiftUI
+import WorkoutManager
 
 @main
 struct WWDC21WorkoutApp_Watch_AppApp: App {
-    private var workoutManager: WorkoutManager
+    private var workoutManager: WorkoutManaging
     @State private var viewModel: RootViewModel
 
     init() {
