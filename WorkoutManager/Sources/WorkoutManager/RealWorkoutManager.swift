@@ -64,7 +64,7 @@ import HealthKit
     public private(set) var heartRate: Double = 0
     public private(set) var activeEnergy: Double = 0
     public private(set) var distance: Double = 0
-    public private(set) var workout: HKWorkout?
+    public private(set) var completedWorkoutData: WorkoutData?
 
     @MainActor
     private func updateFor(_ statistics: HKStatistics?) {
@@ -98,7 +98,7 @@ import HealthKit
         selectedWorkout = nil
         builder = nil
         session = nil
-        workout = nil
+        completedWorkoutData = nil
         activeEnergy = 0
         averageHeartRate = 0
         heartRate = 0
@@ -167,6 +167,30 @@ import HealthKit
             // handle errors
         }
     }
+
+    private func workoutData(from workout: HKWorkout) -> WorkoutData {
+        let distanceStatistics: HKStatistics? = switch workout.workoutActivityType {
+        case .running, .walking:
+            workout.statistics(for: HKQuantityType(.distanceWalkingRunning))
+
+        case .cycling:
+            workout.statistics(for: HKQuantityType(.distanceCycling))
+
+        default:
+            // Workout type not supported by this app.
+            nil
+        }
+
+        let distance = distanceStatistics?.sumQuantity()?.doubleValue(for: .meter()) ?? 0.0
+
+        let activeEnergyBurned = workout.statistics(for: HKQuantityType(.activeEnergyBurned))?.sumQuantity()?.doubleValue(for: .kilocalorie()) ?? 0.0
+
+        return WorkoutData(
+            totalTime: workout.duration,
+            totalDistance: distance,
+            activeEnergyBurned: activeEnergyBurned
+        )
+    }
 }
 
 // MARK: - HKWorkoutSessionDelegate
@@ -189,7 +213,11 @@ extension RealWorkoutManager: HKWorkoutSessionDelegate {
                 do {
                     guard let builder else { return }
                     try await builder.endCollection(at: date)
-                    workout = try await builder.finishWorkout()
+                    let workout = try await builder.finishWorkout()
+
+                    if let workout {
+                        completedWorkoutData = workoutData(from: workout)
+                    }
                 } catch {
                     // handle errors
                 }

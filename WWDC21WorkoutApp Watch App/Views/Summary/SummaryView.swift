@@ -19,7 +19,7 @@ struct SummaryView: View {
     }
 
     var body: some View {
-        if viewModel.savedWorkout == nil {
+        if viewModel.completedWorkoutData == nil {
             ProgressView("Saving workout")
                 .navigationBarHidden(true)
         } else {

@@ -18,7 +18,7 @@ import HealthKit
     public var activeEnergy: Double
     public var distance: Double
     public var builder: HKLiveWorkoutBuilder?
-    public var workout: HKWorkout?
+    public var completedWorkoutData: WorkoutData?
     public var healthStore: HKHealthStore = HKHealthStore()
 
     public var onEndWorkout: (() -> Void)?
@@ -45,7 +45,7 @@ import HealthKit
         activeEnergy: Double = 0,
         distance: Double = 0,
         builder: HKLiveWorkoutBuilder? = nil,
-        workout: HKWorkout? = nil,
+        completedWorkoutData: WorkoutData? = nil,
         healthStore: HKHealthStore = HKHealthStore(),
         onEndWorkout: (() -> Void)? = nil,
         onTogglePause: (() -> Void)? = nil,
@@ -59,7 +59,7 @@ import HealthKit
         self.activeEnergy = activeEnergy
         self.distance = distance
         self.builder = builder
-        self.workout = workout
+        self.completedWorkoutData = completedWorkoutData
         self.healthStore = healthStore
         self.onEndWorkout = onEndWorkout
         self.onTogglePause = onTogglePause

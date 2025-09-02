@@ -5,7 +5,7 @@
 //  Created by Daniel Luo on 9/1/25.
 //
 
-import HealthKit // can refactor WorkoutManaging so we don't need to look at the HKWorkout directly, but we would still need this import in order to vend a HKHealthStore from here.
+import HealthKit // refactor so we don't need to access the healthstore from here
 import Foundation
 import WorkoutManager
 
@@ -24,29 +24,17 @@ import WorkoutManager
         self.workoutManager = workoutManager
     }
 
-    var savedWorkout: HKWorkout? {
-        workoutManager.workout
+    var completedWorkoutData: WorkoutData? {
+        workoutManager.completedWorkoutData
     }
 
     var totalTime: String {
-        durationFormatter.string(from: workoutManager.workout?.duration ?? 0.0) ?? ""
+        durationFormatter.string(from: completedWorkoutData?.totalTime ?? 0.0) ?? ""
     }
 
     var totalDistance: String {
-        let distanceStatistics: HKStatistics? = switch workoutManager.workout?.workoutActivityType {
-        case .running, .walking:
-            workoutManager.workout?.statistics(for: HKQuantityType(.distanceWalkingRunning))
-
-        case .cycling:
-            workoutManager.workout?.statistics(for: HKQuantityType(.distanceCycling))
-
-        default:
-            // Workout type not supported by this app.
-            nil
-        }
-
         return Measurement(
-            value: distanceStatistics?.sumQuantity()?.doubleValue(for: .meter()) ?? 0.0,
+            value: completedWorkoutData?.totalDistance ?? 0.0,
             unit: UnitLength.meters
         ).formatted(
             .measurement(
@@ -58,7 +46,7 @@ import WorkoutManager
 
     var totalEnergy: String {
         Measurement(
-            value: workoutManager.workout?.statistics(for: HKQuantityType(.activeEnergyBurned))?.sumQuantity()?.doubleValue(for: .kilocalorie()) ?? 0.0,
+            value: completedWorkoutData?.activeEnergyBurned ?? 0.0,
             unit: UnitEnergy.kilocalories
         ).formatted(
             .measurement(
