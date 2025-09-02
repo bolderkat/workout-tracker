@@ -17,11 +17,11 @@ import WorkoutManager
     }
 
     var timelineStartDate: Date {
-        workoutManager.builder?.startDate ?? Date()
+        workoutManager.workoutStartDate ?? Date()
     }
 
     var elapsedTime: Double {
-        workoutManager.builder?.elapsedTime ?? 0
+        workoutManager.elapsedTime ?? 0
     }
 
     var elapsedEnergy: String {

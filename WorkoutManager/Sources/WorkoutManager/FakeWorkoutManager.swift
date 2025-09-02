@@ -17,7 +17,8 @@ import HealthKit
     public var heartRate: Double
     public var activeEnergy: Double
     public var distance: Double
-    public var builder: HKLiveWorkoutBuilder?
+    public var workoutStartDate: Date?
+    public var elapsedTime: Double?
     public var completedWorkoutData: WorkoutData?
     public var healthStore: HKHealthStore = HKHealthStore()
 
@@ -40,11 +41,12 @@ import HealthKit
         selectedWorkout: WorkoutType? = nil,
         isShowingSummaryView: Bool = false,
         isRunning: Bool = false,
+        workoutStartDate: Date? = nil,
+        elapsedTime: Double? = nil,
         averageHeartRate: Double = 0,
         heartRate: Double = 0,
         activeEnergy: Double = 0,
         distance: Double = 0,
-        builder: HKLiveWorkoutBuilder? = nil,
         completedWorkoutData: WorkoutData? = nil,
         healthStore: HKHealthStore = HKHealthStore(),
         onEndWorkout: (() -> Void)? = nil,
@@ -54,11 +56,12 @@ import HealthKit
         self.selectedWorkout = selectedWorkout
         self.isShowingSummaryView = isShowingSummaryView
         self.isRunning = isRunning
+        self.workoutStartDate = workoutStartDate
+        self.elapsedTime = elapsedTime
         self.averageHeartRate = averageHeartRate
         self.heartRate = heartRate
         self.activeEnergy = activeEnergy
         self.distance = distance
-        self.builder = builder
         self.completedWorkoutData = completedWorkoutData
         self.healthStore = healthStore
         self.onEndWorkout = onEndWorkout

@@ -29,7 +29,7 @@ import HealthKit
 
     public let healthStore = HKHealthStore()
     public private(set) var session: HKWorkoutSession?
-    public private(set) var builder: HKLiveWorkoutBuilder?
+    private var builder: HKLiveWorkoutBuilder?
 
     // MARK: - State machine
 
@@ -64,6 +64,15 @@ import HealthKit
     public private(set) var heartRate: Double = 0
     public private(set) var activeEnergy: Double = 0
     public private(set) var distance: Double = 0
+
+    public var workoutStartDate: Date? {
+        builder?.startDate
+    }
+
+    public var elapsedTime: Double? {
+        builder?.elapsedTime
+    }
+
     public private(set) var completedWorkoutData: WorkoutData?
 
     @MainActor

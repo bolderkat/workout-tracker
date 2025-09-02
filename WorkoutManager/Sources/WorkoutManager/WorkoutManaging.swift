@@ -13,13 +13,14 @@ public protocol WorkoutManaging {
     var selectedWorkout: WorkoutType? { get set }
     var isShowingSummaryView: Bool { get set }
     var isRunning: Bool { get }
-    var builder: HKLiveWorkoutBuilder? { get } // TODO: expose elapsed time and start date instead of builder
+    var workoutStartDate: Date? { get }
+    var elapsedTime: Double? { get }
     var averageHeartRate: Double { get }
     var heartRate: Double { get }
     var activeEnergy: Double { get }
     var distance: Double { get }
     var completedWorkoutData: WorkoutData? { get }
-    var healthStore: HKHealthStore { get } // TODO: vend ActivityRingsView instead of exposing HKHealthStore
+    var healthStore: HKHealthStore { get } // TODO: vend ActivityRingsView from the module instead of exposing HKHealthStore in this protocol
 
     func endWorkout()
     func togglePause()
