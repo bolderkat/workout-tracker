@@ -51,7 +51,7 @@ struct SummaryView: View {
 
                     Text("Activity Rings")
 
-                    ActivityRingsView(healthStore: viewModel.healthStore)
+                    ActivityRingsView()
                         .frame(width: 50, height: 50)
 
                     Button("Done") {

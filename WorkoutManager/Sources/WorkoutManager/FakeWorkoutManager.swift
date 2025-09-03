@@ -20,7 +20,6 @@ import HealthKit
     public var workoutStartDate: Date?
     public var elapsedTime: Double?
     public var completedWorkoutData: WorkoutData?
-    public var healthStore: HKHealthStore = HKHealthStore()
 
     public var onEndWorkout: (() -> Void)?
     public func endWorkout() {
@@ -48,7 +47,6 @@ import HealthKit
         activeEnergy: Double = 0,
         distance: Double = 0,
         completedWorkoutData: WorkoutData? = nil,
-        healthStore: HKHealthStore = HKHealthStore(),
         onEndWorkout: (() -> Void)? = nil,
         onTogglePause: (() -> Void)? = nil,
         onRequestAuthorization: (() -> Void)? = nil
@@ -63,7 +61,6 @@ import HealthKit
         self.activeEnergy = activeEnergy
         self.distance = distance
         self.completedWorkoutData = completedWorkoutData
-        self.healthStore = healthStore
         self.onEndWorkout = onEndWorkout
         self.onTogglePause = onTogglePause
         self.onRequestAuthorization = onRequestAuthorization

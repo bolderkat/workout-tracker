@@ -20,7 +20,6 @@ public protocol WorkoutManaging {
     var activeEnergy: Double { get }
     var distance: Double { get }
     var completedWorkoutData: WorkoutData? { get }
-    var healthStore: HKHealthStore { get } // TODO: vend ActivityRingsView from the module instead of exposing HKHealthStore in this protocol
 
     func endWorkout()
     func togglePause()

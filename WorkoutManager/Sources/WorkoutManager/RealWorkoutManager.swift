@@ -27,7 +27,6 @@ import HealthKit
         }
     }
 
-    public let healthStore = HKHealthStore()
     public private(set) var session: HKWorkoutSession?
     private var builder: HKLiveWorkoutBuilder?
 
@@ -130,7 +129,7 @@ import HealthKit
             HKObjectType.activitySummaryType(),
         ]
 
-        healthStore.requestAuthorization(
+        HealthStoreClient.store.requestAuthorization(
             toShare: typesToShare,
             read: typesToRead
         ) { success, error in
@@ -145,7 +144,7 @@ import HealthKit
 
         do {
             session = try HKWorkoutSession(
-                healthStore: healthStore,
+                healthStore: HealthStoreClient.store,
                 configuration: configuration
             )
 
@@ -156,7 +155,7 @@ import HealthKit
         }
 
         builder?.dataSource = HKLiveWorkoutDataSource(
-            healthStore: healthStore,
+            healthStore: HealthStoreClient.store,
             workoutConfiguration: configuration
         )
 

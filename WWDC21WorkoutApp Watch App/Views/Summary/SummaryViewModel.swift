@@ -62,8 +62,4 @@ import WorkoutManager
             .formatted(.number.precision(.fractionLength(0)))
         + " bpm"
     }
-
-    var healthStore: HKHealthStore {
-        workoutManager.healthStore
-    }
 }
