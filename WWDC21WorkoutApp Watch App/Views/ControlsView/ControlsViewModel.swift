@@ -17,11 +17,11 @@ import WorkoutManager
     }
 
     var playPauseButtonIconName: String {
-        workoutManager.isRunning ? "pause" : "play"
+        workoutManager.isWorkoutRunning ? "pause" : "play"
     }
 
     var playPauseButtonTitle: String {
-        workoutManager.isRunning ? "Pause" : "Resume"
+        workoutManager.isWorkoutRunning ? "Pause" : "Resume"
     }
 
     func endWorkout() {

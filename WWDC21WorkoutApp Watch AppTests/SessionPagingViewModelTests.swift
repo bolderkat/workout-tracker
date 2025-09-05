@@ -50,7 +50,7 @@ struct SessionPagingViewModelTests {
         let vm = await SessionPagingViewModel(workoutManager: workoutManager)
 
         await MainActor.run {
-            workoutManager.isRunning = isRunning
+            workoutManager.isWorkoutRunning = isRunning
         }
 
         #expect(await vm.isWorkoutRunning == isRunning)
