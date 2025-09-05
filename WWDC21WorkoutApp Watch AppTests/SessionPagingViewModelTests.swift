@@ -13,7 +13,7 @@ struct SessionPagingViewModelTests {
     typealias Tab = SessionPagingViewModel.Tab
     @MainActor let workoutManager = FakeWorkoutManager()
 
-    // All of these tests are very simple and basically copy of the VM logic,
+    // All of these tests are very simple and basically copy the VM logic,
     // but the value lies in being able to catch regressions.
 
     static let selectedWorkouts = WorkoutType.allCases + [nil]
