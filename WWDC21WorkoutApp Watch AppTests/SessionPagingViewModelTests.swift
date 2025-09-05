@@ -11,12 +11,12 @@ import WorkoutManager
 
 struct SessionPagingViewModelTests {
     typealias Tab = SessionPagingViewModel.Tab
-    @MainActor let workoutManager = FakeWorkoutManager()
+    @MainActor private let workoutManager = FakeWorkoutManager()
 
     // All of these tests are very simple and basically copy the VM logic,
     // but the value lies in being able to catch regressions.
 
-    static let selectedWorkouts = WorkoutType.allCases + [nil]
+    private static let selectedWorkouts = WorkoutType.allCases + [nil]
 
     @Test("Navigation title name", arguments: selectedWorkouts)
     func navigationTitleName(for selectedWorkout: WorkoutType?) async {
