@@ -10,7 +10,7 @@ import WorkoutManager
 
 @MainActor
 @Observable class SessionPagingViewModel {
-    enum Tab {
+    enum Tab: CaseIterable {
         case controls
         case metrics
         case nowPlaying
