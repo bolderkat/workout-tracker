@@ -11,8 +11,8 @@ import HealthKit
 @MainActor
 @Observable public class FakeWorkoutManager: WorkoutManaging {
     public var selectedWorkout: WorkoutType?
-    public var isShowingSummaryView: Bool
-    public var isRunning: Bool
+    public var didUserEndCurrentWorkout: Bool
+    public var isWorkoutRunning: Bool
     public var averageHeartRate: Double
     public var heartRate: Double
     public var activeEnergy: Double
@@ -24,6 +24,11 @@ import HealthKit
     public var onEndWorkout: (() -> Void)?
     public func endWorkout() {
         onEndWorkout?()
+    }
+
+    public var onResetWorkoutData: (() -> Void)?
+    public func resetWorkoutData() {
+        onResetWorkoutData?()
     }
 
     public var onTogglePause: (() -> Void)?
@@ -48,12 +53,13 @@ import HealthKit
         distance: Double = 0,
         completedWorkoutData: WorkoutData? = nil,
         onEndWorkout: (() -> Void)? = nil,
+        onResetWorkoutData: (() -> Void)? = nil,
         onTogglePause: (() -> Void)? = nil,
         onRequestAuthorization: (() -> Void)? = nil
     ) {
         self.selectedWorkout = selectedWorkout
-        self.isShowingSummaryView = isShowingSummaryView
-        self.isRunning = isRunning
+        self.didUserEndCurrentWorkout = isShowingSummaryView
+        self.isWorkoutRunning = isRunning
         self.workoutStartDate = workoutStartDate
         self.elapsedTime = elapsedTime
         self.averageHeartRate = averageHeartRate
@@ -62,6 +68,7 @@ import HealthKit
         self.distance = distance
         self.completedWorkoutData = completedWorkoutData
         self.onEndWorkout = onEndWorkout
+        self.onResetWorkoutData = onResetWorkoutData
         self.onTogglePause = onTogglePause
         self.onRequestAuthorization = onRequestAuthorization
     }
