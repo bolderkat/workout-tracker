@@ -5,7 +5,7 @@
 //  Created by Daniel Luo on 9/1/25.
 //
 
-public enum WorkoutType: Int, Identifiable {
+public enum WorkoutType: Int, Identifiable, CaseIterable, Sendable {
     case running
     case cycling
     case walking
