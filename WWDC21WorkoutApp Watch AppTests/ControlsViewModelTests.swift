@@ -10,11 +10,11 @@ import WorkoutManager
 @testable import WWDC21WorkoutApp_Watch_App
 
 struct ControlsViewModelTests {
-    @MainActor let workoutManager = FakeWorkoutManager()
+    @MainActor private let workoutManager = FakeWorkoutManager()
 
-    static let trueFalse = [true, false]
+    private static let trueFalse = [true, false]
 
-    static let expectedIconNameAndTitle = [
+    private static let expectedIconNameAndTitle = [
         ("pause", "Pause"),
         ("play", "Resume")
     ]
