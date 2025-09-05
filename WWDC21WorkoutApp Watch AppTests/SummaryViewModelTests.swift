@@ -10,9 +10,9 @@ import WorkoutManager
 @testable import WWDC21WorkoutApp_Watch_App
 
 struct SummaryViewModelTests {
-    @MainActor var workoutManager = FakeWorkoutManager()
+    @MainActor private var workoutManager = FakeWorkoutManager()
 
-    static let workoutData: [WorkoutData?] = [
+    private static let workoutData: [WorkoutData?] = [
         nil,
         WorkoutData(
             totalTime: 2.0,
@@ -22,7 +22,7 @@ struct SummaryViewModelTests {
     ]
 
     /// Values to be fed into distance, calorie burn and HR methods.
-    static let metricValues = [
+    private static let metricValues = [
         102.3,
         19999.2,
         0.43,
@@ -31,7 +31,7 @@ struct SummaryViewModelTests {
         -102,
     ]
 
-    static let expectedTimeStrings = [
+    private static let expectedTimeStrings = [
         "00:01:42",
         "05:33:19",
         "00:00:00",
@@ -40,7 +40,7 @@ struct SummaryViewModelTests {
         "00:01:42",
     ]
 
-    static let expectedDistanceStrings = [
+    private static let expectedDistanceStrings = [
         "350 ft",
         "12 mi",
         "1 ft",
@@ -49,7 +49,7 @@ struct SummaryViewModelTests {
         "-350 ft",
     ]
 
-    static let expectedEnergyStrings = [
+    private static let expectedEnergyStrings = [
         "102 Cal",
         "19,999 Cal",
         "0 Cal",
@@ -58,7 +58,7 @@ struct SummaryViewModelTests {
         "-102 Cal",
     ]
 
-    static let expectedHeartRateStrings = [
+    private static let expectedHeartRateStrings = [
         "102 bpm",
         "19,999 bpm",
         "0 bpm",
