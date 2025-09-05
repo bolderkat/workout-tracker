@@ -3,6 +3,7 @@ This repo extends the workout tracking watchOS app from [WWDC1: Build a workout 
 
 The app leverages SwiftUI and Apple's HealthKit APIs to track physical activity (distance, BPM, calories burned) during biking, walking and cycling workouts. I have extended the application further from the tutorial to implement:
 - MVVM architecture.
+- Migration to modern Swift Concurrency, replacing the usage of Grand Central Dispatch from the tutorial.
 - Tree-based dependency injection to allow for mocking/faking of the `WorkoutManager` class that interacts with HealthKit.
 - Creation of a separate `WorkoutManager` Swift package that provides abstractions on HealthKit, such that the application target itself does not need to import or otherwise be concerned with HealthKit.
 - Unit test coverage with the new Swift Testing framework.
