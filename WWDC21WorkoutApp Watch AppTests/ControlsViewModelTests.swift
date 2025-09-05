@@ -25,7 +25,7 @@ struct ControlsViewModelTests {
         let vm = await ControlsViewModel(workoutManager: workoutManager)
 
         await MainActor.run {
-            workoutManager.isRunning = isRunning
+            workoutManager.isWorkoutRunning = isRunning
         }
 
         #expect(await vm.playPauseButtonIconName == expectedIconName)

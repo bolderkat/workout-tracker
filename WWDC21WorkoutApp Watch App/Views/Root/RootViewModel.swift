@@ -18,10 +18,13 @@ import WorkoutManager
 
     var isShowingSummaryView: Bool {
         get {
-            workoutManager.isShowingSummaryView
+            workoutManager.didUserEndCurrentWorkout
         }
         set {
-            workoutManager.isShowingSummaryView = newValue
+            if !newValue {
+                // Summary view was dismissed.
+                workoutManager.resetWorkoutData()
+            }
         }
     }
 }

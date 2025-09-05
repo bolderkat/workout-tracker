@@ -11,8 +11,8 @@ import HealthKit
 @MainActor
 public protocol WorkoutManaging {
     var selectedWorkout: WorkoutType? { get set }
-    var isShowingSummaryView: Bool { get set }
-    var isRunning: Bool { get }
+    var isWorkoutRunning: Bool { get }
+    var didUserEndCurrentWorkout: Bool { get set }
     var workoutStartDate: Date? { get }
     var elapsedTime: Double? { get }
     var averageHeartRate: Double { get }
@@ -22,6 +22,7 @@ public protocol WorkoutManaging {
     var completedWorkoutData: WorkoutData? { get }
 
     func endWorkout()
+    func resetWorkoutData()
     func togglePause()
     func requestAuthorization()
 }

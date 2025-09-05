@@ -19,23 +19,17 @@ import HealthKit
         }
     }
 
-    public var isShowingSummaryView: Bool = false {
-        didSet {
-            if !isShowingSummaryView {
-                resetWorkout()
-            }
-        }
-    }
+    public var didUserEndCurrentWorkout: Bool = false
 
     public private(set) var session: HKWorkoutSession?
     private var builder: HKLiveWorkoutBuilder?
 
     // MARK: - State machine
 
-    public var isRunning = false
+    public var isWorkoutRunning = false
 
     public func togglePause() {
-        if isRunning == true {
+        if isWorkoutRunning == true {
             pause()
         } else {
             resume()
@@ -52,7 +46,19 @@ import HealthKit
 
     public func endWorkout() {
         session?.end()
-        isShowingSummaryView = true
+        didUserEndCurrentWorkout = true
+    }
+
+    public func resetWorkoutData() {
+        selectedWorkout = nil
+        builder = nil
+        session = nil
+        completedWorkoutData = nil
+        didUserEndCurrentWorkout = false
+        activeEnergy = 0
+        averageHeartRate = 0
+        heartRate = 0
+        distance = 0
     }
 
     // MARK: - HealthKit
@@ -99,18 +105,6 @@ import HealthKit
         default:
             return
         }
-    }
-
-    // main actor??
-    private func resetWorkout() {
-        selectedWorkout = nil
-        builder = nil
-        session = nil
-        completedWorkoutData = nil
-        activeEnergy = 0
-        averageHeartRate = 0
-        heartRate = 0
-        distance = 0
     }
 
     /// Request authorization to access HealthKit.
@@ -213,10 +207,10 @@ extension RealWorkoutManager: HKWorkoutSessionDelegate {
         Task { @MainActor in
             switch toState {
             case .running:
-                isRunning = true
+                isWorkoutRunning = true
 
             case .ended:
-                isRunning = false
+                isWorkoutRunning = false
 
                 do {
                     guard let builder else { return }
@@ -231,9 +225,9 @@ extension RealWorkoutManager: HKWorkoutSessionDelegate {
                 }
 
             case .notStarted, .paused, .prepared, .stopped:
-                isRunning = false
+                isWorkoutRunning = false
             @unknown default:
-                isRunning = false
+                isWorkoutRunning = false
             }
         }
     }

@@ -32,7 +32,7 @@ import WorkoutManager
     }
 
     var isWorkoutRunning: Bool {
-        workoutManager.isRunning
+        workoutManager.isWorkoutRunning
     }
 
     func displayMetricsView() {
