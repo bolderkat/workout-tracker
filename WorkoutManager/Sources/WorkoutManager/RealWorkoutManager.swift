@@ -10,6 +10,13 @@ import HealthKit
 
 @MainActor
 @Observable public class RealWorkoutManager: NSObject, WorkoutManaging {
+    public private(set) var session: HKWorkoutSession?
+    private var builder: HKLiveWorkoutBuilder?
+
+    // MARK: - State machine
+
+    // TODO: consolidate selectedWorkout and Bool flags into enum
+    
     public var selectedWorkout: WorkoutType? {
         didSet {
             guard let selectedWorkout else { return }
@@ -20,11 +27,6 @@ import HealthKit
     }
 
     public var didUserEndCurrentWorkout: Bool = false
-
-    public private(set) var session: HKWorkoutSession?
-    private var builder: HKLiveWorkoutBuilder?
-
-    // MARK: - State machine
 
     public var isWorkoutRunning = false
 
